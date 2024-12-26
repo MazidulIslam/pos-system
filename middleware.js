@@ -5,6 +5,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export async function middleware(req) {
   const token = await getToken({ req, secret });
+  console.log("Token:_____", token);
   const { pathname } = req.nextUrl;
 
   if (!token && pathname.startsWith("/dashboard")) {

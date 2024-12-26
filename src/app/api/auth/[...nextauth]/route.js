@@ -1,12 +1,11 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
 import { connectToDatabase, disconnectFromDatabase } from "@/lib/mongodb";
 
 const secret = process.env.NEXTAUTH_SECRET || "your_secret_key";
 
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -56,4 +55,12 @@ export const authOptions = {
   },
 };
 
-export default NextAuth(authOptions);
+// Export the appropriate HTTP methods
+export async function POST(request) {
+  return NextAuth(authOptions)(request);
+}
+
+// Optional: handle other HTTP methods (if needed)
+export async function GET(request) {
+  return NextAuth(authOptions)(request);
+}
